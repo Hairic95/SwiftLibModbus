@@ -149,7 +149,7 @@ public class SwiftLibModbus: NSObject {
         }
     }
 
-    func writeRegister(address: Int32, value: Int32, success: @escaping () -> Void, failure: @escaping (NSError) -> Void) {
+    public func writeRegister(address: Int32, value: Int32, success: @escaping () -> Void, failure: @escaping (NSError) -> Void) {
         modbusQueue?.async {
             if modbus_write_register(self.mb!, address, value) >= 0 {
                 DispatchQueue.main.async {
@@ -266,19 +266,19 @@ public class SwiftLibModbus: NSObject {
         }
     }
 
-    public private func buildNSError(errno: Int32, errorString: NSString) -> NSError {
+    private func buildNSError(errno: Int32, errorString: NSString) -> NSError {
         var details: [String: Any] = [:]
         details[NSLocalizedDescriptionKey] = errorString
         let error = NSError(domain: "Modbus", code: Int(errno), userInfo: details)
         return error
     }
 
-    public private func buildNSError(errno: Int32) -> NSError {
+    private func buildNSError(errno: Int32) -> NSError {
         let errorString = NSString(utf8String: modbus_strerror(errno))
         return self.buildNSError(errno: errno, errorString: errorString!)
     }
 
-    public deinit {
+    deinit {
         // dispatch_release(modbusQueue);
         modbus_free(mb!);
     }
