@@ -65,11 +65,11 @@ public class SwiftLibModbus: NSObject {
         }
     }
 
-    func disconnect() {
+    public func disconnect() {
         modbus_close(mb!)
     }
 
-    func writeType(type: FunctionType, address: Int32, value: Int32, success: @escaping () -> Void, failure: @escaping (NSError) -> Void) {
+    public func writeType(type: FunctionType, address: Int32, value: Int32, success: @escaping () -> Void, failure: @escaping (NSError) -> Void) {
         if type == .kBits {
             let status = value != 0
             self.writeBit(address: address, status: status,
