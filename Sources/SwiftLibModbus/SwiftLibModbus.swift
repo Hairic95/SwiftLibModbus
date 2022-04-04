@@ -17,7 +17,7 @@ enum FunctionType {
     case kRegisters
 }
 
-class SwiftModbus: NSObject {
+class SwiftLibModbus: NSObject {
 
     var mb: OpaquePointer?
     var modbusQueue: DispatchQueue?
