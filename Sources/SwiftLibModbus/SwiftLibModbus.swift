@@ -10,7 +10,7 @@
 import Foundation
 import CModbus
 
-enum FunctionType {
+public enum FunctionType {
     case kInputBits
     case kBits
     case kInputRegisters
@@ -19,9 +19,9 @@ enum FunctionType {
 
 public class SwiftLibModbus: NSObject {
 
-    var mb: OpaquePointer?
-    var modbusQueue: DispatchQueue?
-    var ipAddress: NSString?
+    public var mb: OpaquePointer?
+    public var modbusQueue: DispatchQueue?
+    public var ipAddress: NSString?
 
     public init(ipAddress: NSString, port: Int32, device: Int32) {
         super.init()
