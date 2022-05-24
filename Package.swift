@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "SwiftLibModbus",
     platforms: [
-        .iOS(.v13),
+        .iOS(.v8),
         .macOS(.v10_15),
     ],
     products: [
