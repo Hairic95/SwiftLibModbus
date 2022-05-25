@@ -47,9 +47,9 @@ MODBUS_BEGIN_DECLS
 
 #define _MODBUS_EXCEPTION_RSP_LENGTH 5
 
-/* Timeouts in microsecond (0.5 s) */
-#define _RESPONSE_TIMEOUT    5000000
-#define _BYTE_TIMEOUT        5000000
+/* Timeouts in microsecond (0.75 s) */
+#define _RESPONSE_TIMEOUT    500000
+#define _BYTE_TIMEOUT        500000
 
 /* Function codes */
 #define _FC_READ_COILS                0x01
