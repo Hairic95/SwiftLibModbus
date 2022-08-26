@@ -219,6 +219,15 @@ static int _modbus_tcp_set_ipv4_options(int s)
     if (rc == -1) {
         return -1;
     }
+    
+    // AGGIUNTA IVO 2022-08-26 KEEPALIVE
+    /* Set the SOCKET keep alive flag */
+    option = 1;
+    rc = setsockopt(s, SOL_SOCKET, SO_KEEPALIVE,
+                    (const void *)&option, sizeof(int));
+    if (rc == -1) {
+        return -1;
+    }
 
 #ifndef OS_WIN32
     /**
