@@ -22,7 +22,7 @@ public class SwiftLibModbus: NSObject {
     public var mb: OpaquePointer?
     public var modbusQueue: DispatchQueue?
     public var ipAddress: NSString?
-    public var timeoutSeconds: timeval = new timeval(tv_sec: 5)
+    public var timeoutSeconds: timeval = timeval(tv_sec: 5)
 
     public init(ipAddress: NSString, port: Int32, device: Int32) {
         super.init()
