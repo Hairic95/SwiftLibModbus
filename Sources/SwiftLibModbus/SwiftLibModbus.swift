@@ -22,6 +22,7 @@ public class SwiftLibModbus: NSObject {
     public var mb: OpaquePointer?
     public var modbusQueue: DispatchQueue?
     public var ipAddress: NSString?
+    public var timeoutSeconds: timeval = new timeval(tv_sec: 5)
 
     public init(ipAddress: NSString, port: Int32, device: Int32) {
         super.init()
@@ -35,7 +36,7 @@ public class SwiftLibModbus: NSObject {
         var modbusErrorRecoveryMode = modbus_error_recovery_mode(0)
         modbusErrorRecoveryMode = modbus_error_recovery_mode(rawValue: MODBUS_ERROR_RECOVERY_LINK.rawValue | MODBUS_ERROR_RECOVERY_PROTOCOL.rawValue)
         modbus_set_error_recovery(mb!, modbusErrorRecoveryMode)
-        modbus_set_response_timeout(mb!, 5)
+        modbus_set_response_timeout(mb!, &timeoutInterval)
         modbus_set_slave(mb!, device)
         return true
     }
