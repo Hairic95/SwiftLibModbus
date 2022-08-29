@@ -36,7 +36,7 @@ public class SwiftLibModbus: NSObject {
         var modbusErrorRecoveryMode = modbus_error_recovery_mode(0)
         modbusErrorRecoveryMode = modbus_error_recovery_mode(rawValue: MODBUS_ERROR_RECOVERY_LINK.rawValue | MODBUS_ERROR_RECOVERY_PROTOCOL.rawValue)
         modbus_set_error_recovery(mb!, modbusErrorRecoveryMode)
-        modbus_set_response_timeout(mb!, &timeoutInterval)
+        modbus_set_response_timeout(mb!, &timeoutSeconds)
         modbus_set_slave(mb!, device)
         return true
     }
