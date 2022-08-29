@@ -48,8 +48,8 @@ MODBUS_BEGIN_DECLS
 #define _MODBUS_EXCEPTION_RSP_LENGTH 5
 
 /* Additional Timeouts in seconds */
-#define _RESPONSE_TIMEOUT_SEC   5
-#define _BYTE_TIMEOUT_SEC       5
+#define _RESPONSE_TIMEOUT_SEC   1
+#define _BYTE_TIMEOUT_SEC       1
 /* Timeouts in microsecond (0.5 s) */
 #define _RESPONSE_TIMEOUT    0
 #define _BYTE_TIMEOUT        0
