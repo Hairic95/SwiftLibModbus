@@ -189,7 +189,7 @@ static int send_msg(modbus_t *ctx, uint8_t *msg, int msg_length)
 
                 if ((errno == EBADF || errno == ECONNRESET || errno == EPIPE)) {
                     modbus_close(ctx);
-                    modbus_connect(ctx);
+                    // modbus_connect(ctx);
                 } else {
                     _sleep_and_flush(ctx);
                 }
@@ -374,7 +374,7 @@ int _modbus_receive_msg(modbus_t *ctx, uint8_t *msg, msg_type_t msg_type)
                     _sleep_and_flush(ctx);
                 } else if (errno == EBADF) {
                     modbus_close(ctx);
-                    modbus_connect(ctx);
+                    // modbus_connect(ctx);
                 }
                 errno = saved_errno;
             }
@@ -394,7 +394,7 @@ int _modbus_receive_msg(modbus_t *ctx, uint8_t *msg, msg_type_t msg_type)
                  errno == EBADF)) {
                 int saved_errno = errno;
                 modbus_close(ctx);
-                modbus_connect(ctx);
+                // modbus_connect(ctx);
                 /* Could be removed by previous calls */
                 errno = saved_errno;
             }
