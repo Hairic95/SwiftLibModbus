@@ -70,7 +70,7 @@ public class SwiftLibModbus: NSObject {
         modbus_close(mb!)
     }
 
-    public func writeType(type: FunctionType, address: Int32, value: UInt16, success: @escaping () -> Void, failure: @escaping (NSError) -> Void) {
+    public func writeType(type: FunctionType, address: Int32, value: Int32, success: @escaping () -> Void, failure: @escaping (NSError) -> Void) {
         if type == .kBits {
             let status = value != 0
             self.writeBit(address: address, status: status,
@@ -150,7 +150,7 @@ public class SwiftLibModbus: NSObject {
         }
     }
 
-    public func writeRegister(address: Int32, value: Int32, success: @escaping () -> Void, failure: @escaping (NSError) -> Void) {
+    public func writeRegister(address: Int32, value: UInt16, success: @escaping () -> Void, failure: @escaping (NSError) -> Void) {
         modbusQueue?.async {
             if modbus_write_register(self.mb!, address, value) >= 0 {
                 DispatchQueue.main.async {
