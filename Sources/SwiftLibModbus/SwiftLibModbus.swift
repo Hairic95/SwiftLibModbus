@@ -60,6 +60,7 @@ public class SwiftLibModbus: NSObject {
                 }
             } else {
                 DispatchQueue.main.async {
+                    modbus_set_response_timeout(self.mb!, 5, 0)
                     success()
                 }
             }
