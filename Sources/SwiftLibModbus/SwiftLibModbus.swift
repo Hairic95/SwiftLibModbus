@@ -52,6 +52,7 @@ public class SwiftLibModbus: NSObject {
 
     public func connect(success: @escaping () -> Void, failure: @escaping (NSError) -> Void) {
         modbusQueue?.async {
+            errno = 0
             let ret = modbus_connect(self.mb!)
             if ret == -1 {
                 let error = self.buildNSError(errno: errno)
