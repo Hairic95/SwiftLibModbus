@@ -211,6 +211,10 @@ public class SwiftLibModbus: NSObject {
     public func readRegistersFrom(startAddress: Int32, count: Int32, success: @escaping ([AnyObject]) -> Void, failure: @escaping (NSError) -> Void) {
         modbusQueue?.async {
             let tab_reg: UnsafeMutablePointer<UInt16> = UnsafeMutablePointer<UInt16>.allocate(capacity: Int(count))
+            if (self.mb == nil) {
+                disconnect()
+                return
+            }
             if modbus_read_registers(self.mb!, startAddress, count, tab_reg) >= 0 {
                 let returnArray: NSMutableArray = NSMutableArray(capacity: Int(count))
                 for i in 0..<Int(count) {
@@ -252,6 +256,10 @@ public class SwiftLibModbus: NSObject {
     public func writeRegistersFromAndOn(address: Int32, numberArray: NSArray, success: @escaping () -> Void, failure: @escaping (NSError) -> Void) {
         modbusQueue?.async {
             let valueArray: UnsafeMutablePointer<UInt16> = UnsafeMutablePointer<UInt16>.allocate(capacity: numberArray.count)
+            if (self.mb == nil) {
+                disconnect()
+                return
+            }
             for i in 0..<numberArray.count {
                 valueArray[i] = UInt16(numberArray[i] as! Int)
             }
