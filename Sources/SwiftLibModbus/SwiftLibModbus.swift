@@ -212,7 +212,7 @@ public class SwiftLibModbus: NSObject {
         modbusQueue?.async {
             let tab_reg: UnsafeMutablePointer<UInt16> = UnsafeMutablePointer<UInt16>.allocate(capacity: Int(count))
             if (self.mb == nil) {
-                disconnect()
+                self.disconnect()
                 return
             }
             if modbus_read_registers(self.mb!, startAddress, count, tab_reg) >= 0 {
@@ -257,7 +257,7 @@ public class SwiftLibModbus: NSObject {
         modbusQueue?.async {
             let valueArray: UnsafeMutablePointer<UInt16> = UnsafeMutablePointer<UInt16>.allocate(capacity: numberArray.count)
             if (self.mb == nil) {
-                disconnect()
+                self.disconnect()
                 return
             }
             for i in 0..<numberArray.count {
