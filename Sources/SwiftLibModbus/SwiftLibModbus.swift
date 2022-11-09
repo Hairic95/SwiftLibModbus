@@ -53,7 +53,7 @@ public class SwiftLibModbus: NSObject {
         modbusQueue.async {
             do {
                 errno = 0
-                let ret = tryBlock modbus_connect(self.mb!)
+                let ret = modbus_connect(self.mb!)
                 if ret == -1 {
                     let error = self.buildNSError(errno: errno)
                     DispatchQueue.main.async {
@@ -219,7 +219,7 @@ public class SwiftLibModbus: NSObject {
         modbusQueue.async {
             do {
                 let tab_reg: UnsafeMutablePointer<UInt16> = UnsafeMutablePointer<UInt16>.allocate(capacity: Int(count))
-                if tryBlock modbus_read_registers(self.mb!, startAddress, count, tab_reg) >= 0 {
+                if modbus_read_registers(self.mb!, startAddress, count, tab_reg) >= 0 {
                     let returnArray: NSMutableArray = NSMutableArray(capacity: Int(count))
                     for i in 0..<Int(count) {
                         returnArray.add(Int(tab_reg[i]))
@@ -274,7 +274,7 @@ public class SwiftLibModbus: NSObject {
                     valueArray[i] = UInt16(numberArray[i] as! Int)
                 }
 
-                if tryBlock modbus_write_registers(self.mb!, address, Int32(numberArray.count), valueArray) >= 0 {
+                if modbus_write_registers(self.mb!, address, Int32(numberArray.count), valueArray) >= 0 {
                     DispatchQueue.main.async {
                         success()
                     }
