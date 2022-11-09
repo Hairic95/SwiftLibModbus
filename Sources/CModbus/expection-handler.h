@@ -2,9 +2,9 @@
 //  ExceptionCatcher.h
 //
 
-#import <Foundation/Foundation.h>
+#include <Foundation/Foundation.h>
 
-public NS_INLINE NSException * _Nullable tryBlock(void(^_Nonnull tryBlock)(void)) {
+NS_INLINE NSException * _Nullable tryBlock(void(^_Nonnull tryBlock)(void)) {
     @try {
         tryBlock();
     }
