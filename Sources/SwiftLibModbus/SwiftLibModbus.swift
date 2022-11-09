@@ -51,7 +51,7 @@ public class SwiftLibModbus: NSObject {
 
     public func connect(success: @escaping () -> Void, failure: @escaping (NSError) -> Void) {
         do {
-            modbusQueue?.async {
+            modbusQueue.async {
                 errno = 0
                 let ret = try modbus_connect(self.mb!)
                 if ret == -1 {
@@ -67,7 +67,9 @@ public class SwiftLibModbus: NSObject {
                 }
             }
         } catch {
-            failure("Unexpected error: \(error).")
+            var details: [String: Any] = [:]
+            details[NSLocalizedDescriptionKey] = "Unexpected error: \(error)."
+            failure(NSError(domain: "Modbus", code: Int(420), userInfo: details))
         }
     }
 
@@ -141,7 +143,7 @@ public class SwiftLibModbus: NSObject {
     }
 
     public func writeBit(address: Int32, status: Bool, success: @escaping () -> Void, failure: @escaping (NSError) -> Void) {
-        modbusQueue?.async {
+        modbusQueue.async {
             if modbus_write_bit(self.mb!, address, status ? 1 : 0) >= 0 {
                 DispatchQueue.main.async {
                     success()
@@ -156,7 +158,7 @@ public class SwiftLibModbus: NSObject {
     }
 
     public func writeRegister(address: Int32, value: UInt16, success: @escaping () -> Void, failure: @escaping (NSError) -> Void) {
-        modbusQueue?.async {
+        modbusQueue.async {
             if modbus_write_register(self.mb!, address, value) >= 0 {
                 DispatchQueue.main.async {
                     success()
@@ -171,7 +173,7 @@ public class SwiftLibModbus: NSObject {
     }
 
     public func readBitsFrom(startAddress: Int32, count: Int32, success: @escaping ([AnyObject]) -> Void, failure: @escaping (NSError) -> Void) {
-        modbusQueue?.async {
+        modbusQueue.async {
             let tab_reg: UnsafeMutablePointer<UInt8> = UnsafeMutablePointer<UInt8>.allocate(capacity: Int(count))
             if modbus_read_bits(self.mb!, startAddress, count, tab_reg) >= 0 {
                 let returnArray: NSMutableArray = NSMutableArray(capacity: Int(count))
@@ -191,7 +193,7 @@ public class SwiftLibModbus: NSObject {
     }
 
     public func readInputBitsFrom(startAddress: Int32, count: Int32, success: @escaping ([AnyObject]) -> Void, failure: @escaping (NSError) -> Void) {
-        modbusQueue?.async {
+        modbusQueue.async {
             let tab_reg: UnsafeMutablePointer<UInt8> = UnsafeMutablePointer<UInt8>.allocate(capacity: Int(count))
             if modbus_read_input_bits(self.mb!, startAddress, count, tab_reg) >= 0 {
                 let returnArray: NSMutableArray = NSMutableArray(capacity: Int(count))
@@ -215,7 +217,7 @@ public class SwiftLibModbus: NSObject {
             if (self.mb == nil || modbusQueue == nil) {
                 return
             }
-            modbusQueue?.async {
+            modbusQueue.async {
                 let tab_reg: UnsafeMutablePointer<UInt16> = UnsafeMutablePointer<UInt16>.allocate(capacity: Int(count))
                 if try modbus_read_registers(self.mb!, startAddress, count, tab_reg) >= 0 {
                     let returnArray: NSMutableArray = NSMutableArray(capacity: Int(count))
@@ -234,12 +236,14 @@ public class SwiftLibModbus: NSObject {
                 }
             }
         } catch {
-            failure("Unexpected error: \(error).")
+            var details: [String: Any] = [:]
+            details[NSLocalizedDescriptionKey] = "Unexpected error: \(error)."
+            failure(NSError(domain: "Modbus", code: Int(420), userInfo: details))
         }
     }
 
     public func readInputRegistersFrom(startAddress: Int32, count: Int32, success: @escaping ([AnyObject]) -> Void, failure: @escaping (NSError) -> Void) {
-        modbusQueue?.async {
+        modbusQueue.async {
             let tab_reg: UnsafeMutablePointer<UInt16> = UnsafeMutablePointer<UInt16>.allocate(capacity: Int(count))
             if modbus_read_input_registers(self.mb!, startAddress, count, tab_reg) >= 0 {
                 let returnArray: NSMutableArray = NSMutableArray(capacity: Int(count))
@@ -263,7 +267,7 @@ public class SwiftLibModbus: NSObject {
             if (self.mb == nil || modbusQueue == nil) {
                 return
             }
-            modbusQueue?.async {
+            modbusQueue.async {
                 let valueArray: UnsafeMutablePointer<UInt16> = UnsafeMutablePointer<UInt16>.allocate(capacity: numberArray.count)
                 for i in 0..<numberArray.count {
                     valueArray[i] = UInt16(numberArray[i] as! Int)
@@ -281,7 +285,9 @@ public class SwiftLibModbus: NSObject {
                 }
             }
         } catch {
-            failure("Unexpected error: \(error).")
+            var details: [String: Any] = [:]
+            details[NSLocalizedDescriptionKey] = "Unexpected error: \(error)."
+            failure(NSError(domain: "Modbus", code: Int(420), userInfo: details))
         }
     }
 
@@ -303,10 +309,10 @@ public class SwiftLibModbus: NSObject {
     }
 }
 
- ModbusDevice.swift
+//  ModbusDevice.swift
  
 
- Created by Patrick Stein on 25.02.22.
+//  Created by Patrick Stein on 25.02.22.
 
 
 // import Foundation
