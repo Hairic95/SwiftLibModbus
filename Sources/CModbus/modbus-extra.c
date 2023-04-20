@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <modbus.h>
 #include "modbus-private.h"
+#if defined(_WIN32)
+#include <winsock2.h>
+#else
+#include <sys/socket.h>
+#endif
 
 int send_data(modbus_t *mb, char *buff, unsigned int buff_s) {
     int rc;
