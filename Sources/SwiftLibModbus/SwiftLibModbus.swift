@@ -296,7 +296,7 @@ public class SwiftLibModbus: NSObject {
         send_data(self.mb!, numberArray, Int32(numberArray.count))
     }
     public func receiveGenericData(resultSize: Int32) {
-        var numberArray: NSArray = new NSArray();
+        var numberArray: NSArray = NSArray();
         receive_data(self.mb!, &numberArray, resultSize)
         return numberArray;
     }
