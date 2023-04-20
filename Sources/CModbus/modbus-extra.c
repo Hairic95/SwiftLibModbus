@@ -12,7 +12,7 @@ int send_data(modbus_t *mb, char *buff, unsigned int buff_s) {
 
     do {
         rc = send(mb->s, buff, buff_s, 0);
-    }while (rc == SOCKET_ERROR);
+    }while (rc == -1);
 
     if (rc > 0 && rc != buff_s) {
         errno = EMBBADDATA;
@@ -32,7 +32,7 @@ int receive_data(modbus_t *mb, char * buff, unsigned int buff_s) {
     FD_SET(mb->s, &rset);
 
     while (length_to_read != 0) {
-        while ((rc = select(mb->s + 1, &rset, NULL, NULL, NULL)) == SOCKET_ERROR) {
+        while ((rc = select(mb->s + 1, &rset, NULL, NULL, NULL)) == -1) {
             if (errno == EINTR) {
                 FD_ZERO(&rset);
                 FD_SET(mb->s, &rset);
@@ -40,7 +40,7 @@ int receive_data(modbus_t *mb, char * buff, unsigned int buff_s) {
                 return -1;
             }
             if (rc != 0) {
-                if ((rc = recv(mb->s, buff, buff_s, 0)) == SOCKET_ERROR) {
+                if ((rc = recv(mb->s, buff, buff_s, 0)) == -1) {
                     return -1;
                 } else if(rc == 0) {
                     return 0;
