@@ -305,7 +305,7 @@ public class SwiftLibModbus: NSObject {
         
         let returnArray: NSMutableArray = NSMutableArray(capacity: Int(resultSize))
         for i in 0..<Int(resultSize) {
-            returnArray.add(Int32(numberArray[i]))
+            returnArray.add(numberArray[i])
         }
         return returnArray as NSArray;
     }
