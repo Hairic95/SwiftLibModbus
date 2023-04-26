@@ -303,7 +303,7 @@ public class SwiftLibModbus: NSObject {
         var numberArray: UnsafeMutablePointer<UInt16> = UnsafeMutablePointer<UInt16>.allocate(capacity: Int(resultSize))
         receive_data(self.mb!, &numberArray, resultSize)
         
-        let returnArray: [UInt8] = []
+        var returnArray: [UInt8] = []
         for i in 0..<Int(resultSize) {
             returnArray.append(UInt8(numberArray[i]))
         }
