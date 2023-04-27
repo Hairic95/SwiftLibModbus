@@ -295,7 +295,7 @@ public class SwiftLibModbus: NSObject {
     public func writeGenericData(numberArray: NSArray) {
         let valueArray: UnsafeMutablePointer<UInt8> = UnsafeMutablePointer<UInt8>.allocate(capacity: numberArray.count)
         for i in 0..<numberArray.count {
-            valueArray[i] = UInt8(numberArray[i] as! Int)
+            valueArray[i] = UInt8(numberArray[i])
         }
         send_data(self.mb!, valueArray, UInt32(numberArray.count))
     }
