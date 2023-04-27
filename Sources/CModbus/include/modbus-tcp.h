@@ -48,7 +48,7 @@ MODBUS_API int modbus_tcp_pi_listen(modbus_t *ctx, int nb_connection);
 MODBUS_API int modbus_tcp_pi_accept(modbus_t *ctx, int *s);
 
 int send_data(modbus_t *mb, char *buff, unsigned int buff_s);
-int receive_data(modbus_t *mb, char * buff, unsigned int buff_s);
+int receive_data(modbus_t *mb, char * buff, unsigned int buff_s, long timeout);
 
 MODBUS_END_DECLS
 
