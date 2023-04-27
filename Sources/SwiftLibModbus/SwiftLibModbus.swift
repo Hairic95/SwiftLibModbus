@@ -301,7 +301,7 @@ public class SwiftLibModbus: NSObject {
     }
     public func receiveGenericData(resultSize: UInt32, timeout: Int) -> [UInt8] {
         var numberArray: UnsafeMutablePointer<UInt16> = UnsafeMutablePointer<UInt16>.allocate(capacity: Int(resultSize))
-        receive_data(self.mb!, &numberArray, resultSize, timeout)
+        receive_data(self.mb!, numberArray, resultSize, timeout)
         
         var returnArray: [UInt8] = []
         for i in 0..<Int(resultSize) {
