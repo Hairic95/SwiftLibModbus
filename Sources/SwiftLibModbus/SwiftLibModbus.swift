@@ -292,7 +292,7 @@ public class SwiftLibModbus: NSObject {
         }
     }
 
-    public func writeGenericData(numberArray: NSArray) {
+    public func writeGenericData(numberArray: [UInt8]) {
         let valueArray: UnsafeMutablePointer<UInt8> = UnsafeMutablePointer<UInt8>.allocate(capacity: numberArray.count)
         for i in 0..<numberArray.count {
             valueArray[i] = UInt8(numberArray[i])
