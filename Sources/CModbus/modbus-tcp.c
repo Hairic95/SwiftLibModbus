@@ -941,17 +941,20 @@ int send_data(modbus_t *mb, char *buff, unsigned int buff_s) {
     return rc;
 }
 
-int receive_data(modbus_t *mb, char * buff, unsigned int buff_s) {
+int receive_data(modbus_t *mb, char * buff, unsigned int buff_s, long timeout) {
     int rc;
     fd_set rset;
     int msg_length = 0;
     unsigned int length_to_read = buff_s;
+    struct timeval s_timeout;
+    s_timeout.tv_sec = 0;
+    s_timeout.tv_usec = timeout * 1000l;
 
     FD_ZERO(&rset);
     FD_SET(mb->s, &rset);
 
     while (length_to_read != 0) {
-        while ((rc = select(mb->s + 1, &rset, NULL, NULL, NULL)) == -1) {
+        while ((rc = select(mb->s + 1, &rset, NULL, NULL, &s_timeout)) == -1) {
             if (errno == 4) {
                 FD_ZERO(&rset);
                 FD_SET(mb->s, &rset);
